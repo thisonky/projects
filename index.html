@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝙆𝙀𝙆 𝕏 𝙋𝙧𝙤𝙟𝙚𝙘𝙩𝙨</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .konten {
+            max-width: 800px;
+            width: 90%; /* Lebar responsif */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box; /* Penting untuk padding */
+        }
+
+        .logo-dan-tombol {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 170px; /* Ukuran logo responsif */
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px; /* Jarak antara logo dan tombol */
+        }
+
+        .nama {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .moto {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .tombol-container {
+            display: flex;
+            flex-wrap: wrap; /* Memungkinkan tombol wrap ke baris baru */
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tombol {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0410e9;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box; /* Penting untuk padding */
+        }
+
+        .tombol:hover {
+            background-color: #030dc2; /* Warna hover sedikit lebih gelap */
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+                /* Style Notifikasi (tidak berubah) */
+        .notifikasi {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            padding: 10px;
+            background-color: #ff0000;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            animation: fadeout 4s forwards;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        @keyframes fadeout {
+            0% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 768px) { /* Tablet */
+            .konten {
+                padding: 15px; /* Kurangi padding */
+            }
+            .tombol-container {
+                flex-direction: column; /* Tombol jadi vertikal */
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) { /* Mobile */
+            .konten {
+                padding: 10px; /* Kurangi padding lagi */
+            }
+            .nama {
+                font-size: 20px;
+            }
+            .moto {
+                font-size: 16px;
+            }
+                        .tombol-container {
+                flex-direction: column; /* Tombol jadi horizontal */
+                align-items: center;
+            }
+        }
+    </style>
+        <script>
+        // Ganti dengan API yang Anda inginkan, misal: https://freegeoip.app/json/
+const apiUrl = 'https://ipapi.co/json/';
+
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const notif = document.createElement('div');
+    notif.classList.add('notifikasi');
+
+    // Fungsi untuk mendapatkan waktu real-time dalam format yang diinginkan
+    function getRealTime() {
+      const options = { timeZone: data.timezone, hour12: false };
+      return new Date().toLocaleTimeString('id-ID', options);
+    }
+
+    // Memperbarui konten notifikasi secara awal
+    notif.textContent = `
+      Anda berada di: ${data.city}, ${data.region}, ${data.country}
+      Koordinat: ${data.latitude}, ${data.longitude}
+      Waktu Lokal: ${getRealTime()}
+    `;
+
+    document.body.appendChild(notif);
+
+    // Memperbarui waktu setiap detik
+    const intervalId = setInterval(() => {
+      notif.textContent = notif.textContent.replace(/\d{2}:\d{2}:\d{2}/, getRealTime());
+    }, 1000);
+
+    // Membersihkan interval saat elemen notifikasi dihapus
+    notif.addEventListener('remove', () => {
+      clearInterval(intervalId);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching location:', error);
+    const notif = document.createElement('div');
+    notif.classList.add('notifikasi');
+    notif.textContent = 'Gagal menampilkan ip.';
+    document.body.appendChild(notif);
+  });
+
+    </script>
+</head>
+<body>
+    <div class="konten">
+        <div class="logo-dan-tombol">
+            <img src="logo.png" class="logo" alt="Logo">
+            <button class="tombol" onclick="window.location.href='https://skuyykek69.github.io/asmaraloka';">Journey</button>
+        </div>
+        <h1 class="nama">Web Bucin</h1>
+        <p class="moto">Hasil karya Fajar Onky H. <br/>tempat di mana kata-kata merangkai kisah cinta. Tidak akan ada cinta yang tiba-tiba sempurna, tapi akan ada Cinta Terbaik yang terbentuk karena melalui proses panjang yang penuh lika-liku ujian perjalan hidup ❤️</p>
+        <div class="tombol-container">
+            <button class="tombol" onclick="window.location.href='https://thisonky.github.io/pesan/';">Pesan</button>
+            <button class="tombol" onclick="window.location.href='https://thisonky.github.io/projects/maafku/';">Maafku</button>
+            <button class="tombol" onclick="window.location.href='https://thisonky.github.io/projects/bikinkesal/';">Bikin Kesal</button>
+            <button class="tombol" onclick="window.location.href='https://thisonky.github.io/projects/terimakasih/';">Terimakasih</button>
+        </div>
+        <p class="copyright">&copy; 2025 𝙆𝙀𝙆 𝕏 𝙋𝙧𝙤𝙟𝙚𝙘𝙩𝙨</p>
+    </div>
+</body>
+</html>
